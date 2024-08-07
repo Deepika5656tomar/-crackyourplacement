@@ -1,38 +1,16 @@
-class Solution {
-    public void setZeroes(int[][] matrix) {
-        int n=matrix.length;
-        int m=matrix[0].length;
-        boolean fr=false;
-        boolean fc=false;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(matrix[i][j]==0){
-                    if(i==0) fr=true;
-                    if(j==0) fc=true;
-                    matrix[0][j]=0;
-                    matrix[i][0]=0;
-                }
-            }
+ class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode fast=head;
+        ListNode slow=head;
+        for(int i=0;i<n;i++) fast=fast.next;
+        if(fast==null){
+            return head.next;
         }
-        for(int i=1;i<n;i++){
-            for(int j=1;j<m;j++){
-                if(matrix[i][j]!=0){
-                    if(matrix[i][0]==0 || matrix[0][j]==0){
-                        matrix[i][j]=0;
-                    }
-                }
-            }
+        while(fast.next!=null){
+            slow=slow.next;
+            fast=fast.next;
         }
-        if(fr){
-            for(int j=0;j<m;j++){
-                matrix[0][j]=0;
-            }
-        }
-        if(fc){
-            for(int i=0;i<n;i++){
-                matrix[i][0]=0;
-            }
-        }
-        
+        slow.next=slow.next.next;
+        return head;
     }
 }
